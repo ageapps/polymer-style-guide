@@ -1,0 +1,98 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer.html">
+<link rel="import" href="./ie-widget-chat-dialog-message/ie-widget-chat-dialog-message.html">
+<link rel="import" href="./ie-widget-chat-status-message/ie-widget-chat-status-message.html">
+<dom-module id="ie-widget-chat-message">
+    <template>
+      <template is="dom-if" if="[[dialog]]">
+          <template is="dom-if" if="[[otherdate]]">
+            <ie-widget-chat-status-message text="{{otherdate}}">
+            </ie-widget-chat-status-message>
+          </template>
+    <ie-widget-chat-dialog-message text="[[text]]" author="[[author]]" time="[[time]]" color-code="[[color]]" collapsed="[[collapsed]]">
+    </ie-widget-chat-dialog-message>
+    </template>
+    <template is="dom-if" if="[[!dialog]]">
+        <ie-widget-chat-status-message text="[[text]]" collapsed="[[collapsed]]">
+        </ie-widget-chat-status-message>
+      </template>
+    </template>
+    <script>
+        // tipe of messages
+        const MESSAGE_TYPE_ACTIVITY = "ACTIVITY";
+        const MESSAGE_TYPE_CHAT = "CHAT";
+        const MESSAGE_TYPE_ROOM_OPEN = "ROOM_OPEN";
+
+        IEWidgetChatMessage = Polymer({
+            is: 'ie-widget-chat-message',
+            properties: {
+                author: {
+                    type: String,
+                    value: ""
+                },
+                color: {
+                    type: String,
+                    value: ""
+                },
+                type: {
+                    type: String,
+                    value: ""
+                },
+                timestamp: {
+                    type: Date,
+                },
+                dialog: {
+                    type: Boolean,
+                    value: false,
+                    computed: 'computeType(type)'
+                },
+                collapsed: {
+                    type: Boolean,
+                    value: false
+                },
+                text: {
+                    type: String,
+                    value: "",
+                },
+                otherday: {
+                    type: Boolean,
+                    value: false
+                },
+                otherdate: {
+                    type: String,
+                    value: ""
+                },
+                time: {
+                    type: String,
+                    value: "",
+                    computed: 'computeTime(timestamp)'
+                }
+            },
+            computeTime: function() {
+                const date = new Date(this.timestamp);
+                if (this.otherday) {
+                    this.otherdate = this.getFormattedDate(date);
+                }
+                return this.getFormattedTime(date);
+            },
+            computeType: function() {
+                return Boolean(this.type !== MESSAGE_TYPE_ACTIVITY && this.author);
+            },
+            /**
+             * By a given Date object, returns a String with a formatted time
+             * @param  {Date} date [description]
+             * @return {String}      [description]
+             */
+            getFormattedTime: function(date) {
+                return date.getHours() + ":" + date.getMinutes();
+            },
+            /**
+             * By a given Date object, returns a String with a formatted date
+             * @param  {Date} date [description]
+             * @return {String}      [description]
+             */
+            getFormattedDate: function(date) {
+                return date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+            },
+        });
+    </script>
+</dom-module>

@@ -1,0 +1,69 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="ie-widget-chat-dialog-message">
+    <template>
+
+    <style>
+      header {
+        color: var(--message-heading-color, #e91e63);
+      }
+      header[collapsed]{
+        display: none;
+      }
+    </style>
+
+    <message-container>
+      <header collapsed$="{{collapsed}}">
+        <author>
+          {{author}}
+        </author>
+        <div class="message-time">
+          {{time}}
+        </div>
+      </header>
+      <span class="message-dialog">
+          <span id="messageText"></span>
+      </span>
+    </message-container>
+  </template>
+    <script>
+        Polymer({
+            is: 'ie-widget-chat-dialog-message',
+
+            CHART_COLORS: ['#FF5271', '#00B9F3', '#46BFBD', '#FDB45C', '#F7464A'],
+
+            properties: {
+                time: {
+                    type: String,
+                    value: ""
+                },
+                text: {
+                    type: String,
+                    value: "",
+                    observer: 'setText'
+                },
+                author: {
+                    type: String,
+                    value: ""
+                },
+                colorCode: {
+                    type: String,
+                    value: ""
+                },
+                collapsed: {
+                    type: Boolean
+                }
+            },
+            setText: function() {
+                // mentions color located in "generic-items.css"
+                this.$.messageText.innerHTML = this.text;
+                // Using Mixing component API, each user has a color
+                this.customStyle['--message-heading-color'] = this.colorCode;
+                this.customStyle['--message-time-color'] = this.colorCode;
+                // this.customStyle['--message-heading-color'] = this.CHART_COLORS[this.colorCode];
+                // this.customStyle['--message-time-color'] = this.CHART_COLORS[this.colorCode];
+            }
+        });
+    </script>
+</dom-module>

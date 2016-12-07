@@ -1,0 +1,61 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../../../bower_components/paper-spinner/paper-spinner.html">
+
+<dom-module id="ie-widget-chat-load-button">
+    <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        background: var(--load-button-bg-color, #e91e63);
+        color: var(--load-button-text-color, #fff);
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-center-justified);
+        padding: 10px;
+      }
+      .container{
+        background: var(--load-button-bg-color, #e91e63);
+        color: var(--load-button-text-color, #fff);
+        border: 0;
+        @apply(--layout-flex);
+      }
+      .container[hidden]{
+        display: none;
+      }
+    </style>
+
+      <template is="dom-if" if="{{loading}}">
+        <paper-spinner active="{{loading}}"></paper-spinner>
+      </template>
+    <button class="container" disabled="{{!active}}" hidden$="{{loading}}">
+        <content></content>
+    </button>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'ie-widget-chat-load-button',
+            properties: {
+                loading: {
+                    type: Boolean,
+                    value: false,
+                },
+                active: {
+                    type: Boolean,
+                    value: true
+                }
+            },
+            listeners: {
+                'tap': 'clicked'
+            },
+            clicked: function() {
+              if (this.active) {
+                this.fire('load');
+              }
+            }
+        });
+    </script>
+</dom-module>

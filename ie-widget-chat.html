@@ -1,0 +1,41 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="./ie-widget-chat-message/ie-widget-message.html">
+<link rel="import" href="./ie-widget-chat-load-button/ie-widget-chat-load-button.html">
+<dom-module id="ie-widget-chat">
+
+
+    <template>
+      <h3>CHAT</h3>
+      <main id="chatFeed">
+        <template id="chatMessages" is="dom-if" if="[[!chatItems.length]]">
+          <div class="chat-empty">
+            <h4>No messages avaliable</h4>
+          </div>
+        </template>
+        <template is="dom-if" if="[[chatItems.length]]">
+          <ie-widget-chat-load-button loading={{fetchingHistory}} on-load="loadMoreHistory" active="{{moreHistoryAvailable}}">
+            [[historyButtonText]]
+          </ie-widget-chat-load-button>
+
+          <template is="dom-repeat" items="{{chatItems}}" as="message">
+            <ie-widget-chat-message
+              author={{message._fromName}}
+              color={{message._fromColor}}
+              type={{message.type}}
+              text={{message.text}}
+              timestamp={{message._timestamp}}
+              collapsed={{message.collapse}}
+              otherday={{message.otherday}}>
+            </ie-widget-chat-message>
+          </template>
+
+        </template>
+      </main>
+
+    </template>
+    <script src="../../../bower_components/moment/moment.js"></script>
+    <script src="../../mmtv_components/mmtv-mixin-component/mmtv-mixin-component.js"></script>
+    <script src="./ie-widget-chat.js"></script>
+
+</dom-module>
