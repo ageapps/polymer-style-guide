@@ -18,13 +18,16 @@ This guidelines are mostly influenced by the following resources:
 
 <a name="properties"></a>
 ## Properties
+
 All properties defined inside a Polymer component consisting of more than one word are always written using *lowerCamelCase*
-```
+
+```javascript
 // for example setting a user´s name
 const userName = "Polymer"
 ```
 By defining properties inside a  component, every variable should be initializad with a default value:
-```
+
+```javascript
 Polymer({
 
   is: 'x-custom',
@@ -59,11 +62,12 @@ Polymer({
 ```
 <a name="functions"></a>
 ## Functions
+
 All functions defined inside a  component whose name consiss of more than one word are always written using *lowerCamelCase*.
 
 When defining custom/helper functions, the definition should be as representative as possible, regardless of the name´s length.
 
-```
+```javascript
 ...
 scrollToBottom: function() {
     ...
@@ -78,13 +82,14 @@ This functions should not be defined with the **prefixes** or **suffixes** used 
 
 <a name="observers"></a>
 ## Observers
+
 In order make Obverser callback functions as distinguishable as possible, i will be using `_` prefix and fifferent suffixes accorto the their use. In most cases `xxx` will be the target variable whith will update.
 
 ### Simple and complex Observers
 Use of expression `_xxxChanged`
 
 #### Example (simple)
-```
+```javascript
 Polymer({
 
   is: 'x-custom',
@@ -103,7 +108,7 @@ Polymer({
 });
 ```
 #### Example (complex)
-```
+```javascript
 Polymer({
 
   is: 'x-custom',
@@ -125,7 +130,7 @@ Polymer({
 ### Multiple properties
 You can use `_updatexxx`
 #### Example
-```
+```javascript
 Polymer({
 
   is: 'x-custom',
@@ -149,7 +154,7 @@ Polymer({
 ### Array mutations
 You can use `_xxxAdedOrRemoved`
 #### Example
-```
+```javascript
 Polymer({
 
   is: 'x-custom',
