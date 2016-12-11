@@ -9,6 +9,9 @@ This is a compilation of rules and style guides that i used while developing Pol
   1. [Observers](#observers)
   1. [Events](#events)
   1. ["this" Context](#this)
+  1. [Swich statements](#swich)
+  1. [Comments](#comments)
+  1. [Documentation](#documentation)
   1. [Code Layout](#layout)
   1. [TODOs](#todos)
   1. [Resources](#resources)
@@ -66,7 +69,8 @@ Polymer({
 
 All functions defined inside a component whose name consiss of more than one word are always written using *lowerCamelCase*.
 
-According to the [Clean Code](http://blog.cleancoder.com/) guidelines, functions are defined considering; *"Do one thing"* and *"Don´t repeat yourself"* principles.
+In this matter, following the [Clean Code](http://blog.cleancoder.com/) guidelines, functions are defined considering, ***"Do one thing"*** and ***"Don´t repeat yourself"*** principles.
+Since in most cases, functions inside a polymer component are changing it´s properties, functions should have as less arguments as possible, this means that the mayority of custom functions will be **niladic** and will mutate the component iniside it.
 
 When defining custom/helper functions, the definition should be as representative as possible, regardless of the name´s length.
 
@@ -180,7 +184,7 @@ Polymer({
 
 <a name="events"></a>
 ## Events
-Thanks to the double way data-binding and the event listener and the event firing system, handling events is a very powerfull way to communicate between componnents.
+Thanks to the double way data-binding and the event listener and the event firing system, handling events is a very powerfull way to communicate between componnents. Its is also important to know that Behaviors can also generate events (expose functions to be overriden that get called under speciffic conditions) and this functions are handled the same as system events.
 
 ### Listeners
 When defining event listeners, there is no need of a speciffic preffix, but again, it should be as representative as possible. Considering this, the preffix `handle` is very appropiate to this use.
@@ -293,6 +297,51 @@ When calling functions or variables defined inside the component the `this` vari
     }.bind(this));
   ```
 
+<a name="swich"></a>
+## Swich statements
+
+As mentioned before in the [functions](#function) section, it is desirable to make functions ***do one thing***, however, any function containing a *swich statement*  will not satisfy this principle. This is why the best approach on this matter will be to make every *swich case* to call another function and delegate the code load in more speciffic functions.
+
+Its important to consider later in the [code layout](#layout) that whenever one function is located following that *hierarchy*, the speciffic functions called inside the *swich cases* should be below said function in order to make code more readable.
+
+
+
+<a name="comments"></a>
+## Comments
+
+Comments and their use are very well defined in the next quotes found in [Clean Code book](http://blog.cleancoder.com/):
+> Clear and expressive code with few comments is far superior to cluttered and complex code with lots of comments.
+
+> [...]
+
+> Truth can only be found in one place: the code. Only the code can truly tell you what it does. It is the only source of truly accurate information. Therefore, though comments are sometimes necessary, we will expend significant energy to minimize them.
+
+This is the most appropiate approach that should be taken while coding polymer components.
+
+<a name="documentation"></a>
+## Documentation
+
+Even if having a legible code is important, in huge projects where various programmers are touching the same code or programmers have to reuse components wich are not made by them (reusable components is one of polymer's main purposes) documentation is something to take care of.
+Documentation is allways painfull and a *plus* of work that programmers usually don´t like but it is deffinetly a *minus* of work for the next programmer that wants to reuse that component.
+
+In this purpose, there is a very simple guide about documentation in the [Polymer `<style-guide>`](https://polymerelements.github.io/style-guide).
+
+In spite of that guide´s approach, i decided to look for something more concrete like [JSDoc](http://usejsdoc.org/). This way, we can document our components using a widely used documentation generator.
+
+The next step in this matter is to generate markdown documentation based on [JSDoc](http://usejsdoc.org/) using [jsdox](http://jsdox.org/).
+
+### Example
+```JavaScript
+/**
+ * Represents a book.
+ * @constructor
+ * @param {string} title - The title of the book.
+ * @param {string} author - The author of the book.
+ */
+function Book(title, author) {
+}
+```
+
 <a name="layout"></a>
 ## Code layout
 
@@ -351,17 +400,16 @@ Here will be represented the layout proposed by the next diagrams.
 <a name="tods"></a>
 ## TODOs
 
-+ comments
 + html markup design
-+ reveive feedback
++ receive feedback
++ jsdox integration and examples
 
 <a name="resources"></a>
 ## Resources
 This "guidelines" are mostly influenced by the following resources:
 
 + [Polymer library documentation](https://www.polymer-project.org/1.0/docs/devguide/feature-overview)
-+ [Polymer <style-guide>](https://polymerelements.github.io/style-guide/#properties)
-+ [Polymer <style-guide>](https://polymerelements.github.io/style-guide/#properties)
++ [Polymer `<style-guide>`](https://polymerelements.github.io/style-guide)
 + [Web Components Best Practices](http://webcomponents.org/articles/web-components-best-practices/)
 + [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 + [Clean Code: A Handbook of Agile Software Craftsmanship ](http://blog.cleancoder.com/)
@@ -369,7 +417,7 @@ This "guidelines" are mostly influenced by the following resources:
 
 <a name="conclusion"></a>
 ## Conclusion
-The following words are pure personal opinion.
+Be warned that following words are pure personal opinion.
 
 I am definetly not an experienced programmer, i recently changed my stack to web developement. Don't worry i have allready noticed that JavaScript is going to rule the world (maybe it allready does) very soon. Even in my short experience, since i am an aspiring engineer, i have always wanted to code in an ordered and legible way, and there is so many things out there that "try" to help in this matter (framenworks, style guides, architectures...) that it is difficult to choose one suited for your project, this is why i decided to write this "guide" about the library that i am currently learning, Polymer.
 
