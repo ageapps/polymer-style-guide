@@ -2,6 +2,7 @@
 
 This is a compilation of rules and style guides to use when developing Polymer components.
 
+<a name="contents"></a>
 ## Table of Contents
 
   1. [Properties](#properties)
@@ -64,6 +65,7 @@ Polymer({
 
 });
 ```
+**[⬆ back to top](#contents)**
 <a name="functions"></a>
 ## Functions
 
@@ -87,6 +89,8 @@ checkCollapsibleTime: function(timestamp, timestampnext) {
 ...
 ```
 This functions. should not be defined with the **prefixes** or **suffixes** used in Observers and Listeners. In this way, custom functions and system functions will be easier to distinguish.
+
+**[⬆ back to top](#contents)**
 
 <a name="observers"></a>
 ## Observers
@@ -181,7 +185,7 @@ Polymer({
 
 });
 ```
-
+**[⬆ back to top](#contents)**
 
 <a name="events"></a>
 ## Events
@@ -268,6 +272,7 @@ It is very usefull to comunicate with other components by firing custom events. 
 
 ```
 
+**[⬆ back to top](#contents)**
 
 <a name="this"></a>
 ## "this" Context
@@ -297,6 +302,7 @@ Usually, the `this` variable can be called multiple times inside a function. Whe
       }
     }.bind(this));
   ```
+**[⬆ back to top](#contents)**
 
 <a name="swich"></a>
 ## Swich statements
@@ -305,6 +311,7 @@ As mentioned before in the [functions](#function) section, it is desirable to ma
 
 Later, it's important to consider that whenever one of this functions is placed complying the [code layout](#layout) *hierarchy*, the speciffic functions called inside the *swich cases* should be placed below that function, in order to make code more readable.
 
+**[⬆ back to top](#contents)**
 
 <a name="comments"></a>
 ## Comments
@@ -317,6 +324,8 @@ Comments and their use are very well defined in the next quotes found in [Clean 
 > Truth can only be found in one place: the code. Only the code can truly tell you what it does. It is the only source of truly accurate information. Therefore, though comments are sometimes necessary, we will expend significant energy to minimize them.
 
 This is the most appropiate approach that should be taken while coding polymer components.
+
+**[⬆ back to top](#contents)**
 
 <a name="documentation"></a>
 ## Documentation
@@ -342,6 +351,8 @@ function Book(title, author) {
 }
 ```
 
+**[⬆ back to top](#contents)**
+
 <a name="layout"></a>
 ## Code layout
 
@@ -350,6 +361,7 @@ Finally, while coding and writing Polymer components in a relatively big project
 In this purpose, the idea is to have a *"hierarchy"* taking into account all the items mentioned above.
 
 Here will be represented the layout proposed by the next diagrams.
+
 
 ### Component Generic Layout
 ```
@@ -397,6 +409,8 @@ Here will be represented the layout proposed by the next diagrams.
   - custom functions
 ```
 
+**[⬆ back to top](#contents)**
+
 <a name="todos"></a>
 ## TODOs
 
@@ -414,6 +428,7 @@ This "guidelines" are mostly influenced by the following resources:
 + [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 + [Clean Code: A Handbook of Agile Software Craftsmanship ](http://blog.cleancoder.com/)
 
+**[⬆ back to top](#contents)**
 
 <a name="conclusion"></a>
 ## Conclusion
@@ -424,6 +439,7 @@ I am not yet an experienced programmer, I recently changed my stack to web devel
 
 As a summary, I can tell from my short experience, that Polymer will be the future library leading web development. Big projects with big components can be a huge mess and need to be "clean coded". I would strongly recommend any programmer to read the book [Clean Code](http://blog.cleancoder.com/) , also, if you are contributing in the JavaScript global domination, the Airbnb JavaScript Style Guide can be very helpfull.
 
+**[⬆ back to top](#contents)**
 
 <a name="contribute"></a>
 ## Contribute
@@ -431,3 +447,5 @@ As a summary, I can tell from my short experience, that Polymer will be the futu
 None of this guidelines is definitive, they have been written while developing and learning Polymer. I am sure that there are a lot of missing cases.
 
 Please, feel free to contribute to this guide, any feedback will be appreciated :)
+
+**[⬆ back to top](#contents)**
