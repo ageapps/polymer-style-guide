@@ -2,19 +2,18 @@
 
 This is a compilation of rules and style guides that i used while developing Polymer components.
 
-This guidelines are mostly influenced by the following resources:
-
-+ [Polymer library documentation](https://www.polymer-project.org/1.0/docs/devguide/feature-overview)
-+ [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
-+ [Clean Code: A Handbook of Agile Software Craftsmanship ](http://blog.cleancoder.com/)
-
 ## Table of Contents
 
   1. [Properties](#properties)
   1. [Functions](#functions)
   1. [Observers](#observers)
+  1. [Events](#events)
   1. ["this" Context](#this)
   1. [Code Layout](#layout)
+  1. [TODOs](#todos)
+  1. [Resources](#resources)
+  1. [Conclusion](#conclusion)
+  1. [Contribute](#contribute)
 
 
 
@@ -27,7 +26,7 @@ All properties defined inside a Polymer component consisting of more than one wo
 // for example setting a user´s name
 const userName = "Polymer"
 ```
-By defining properties inside a  component, every variable should be initializad with a default value:
+When defining properties inside a component, every variable should be initializad with a default value:
 
 ```javascript
 Polymer({
@@ -65,7 +64,7 @@ Polymer({
 <a name="functions"></a>
 ## Functions
 
-All functions defined inside a  component whose name consiss of more than one word are always written using *lowerCamelCase*.
+All functions defined inside a component whose name consiss of more than one word are always written using *lowerCamelCase*.
 
 According to the [Clean Code](http://blog.cleancoder.com/) guidelines, functions are defined considering; *"Do one thing"* and *"Don´t repeat yourself"* principles.
 
@@ -87,7 +86,7 @@ This functions should not be defined with the **prefixes** or **suffixes** used 
 <a name="observers"></a>
 ## Observers
 
-In order make Obverser callback functions as distinguishable as possible, i will be using `_` prefix and fifferent suffixes accorto the their use. In most cases `xxx` will be the target variable whitch will update.
+In order make Obverser callback functions as distinguishable as possible, the prefix `_` and different suffixes will be used according to their use. In most cases `xxx` will be the target variable whitch will update.
 
 ### Simple and complex Observers
 Use of expression `_xxxChanged`
@@ -123,9 +122,9 @@ Polymer({
     }
   },
   observers: [
-    'myUsersChanged(users.*)'
+    '_myUsersChanged(users.*)'
   ],
-  myUsersChanged: function(newValue, oldValue) {
+  _myUsersChanged: function(newValue, oldValue) {
     ...
   }
 
@@ -169,14 +168,102 @@ Polymer({
     }
   },
   observers: [
-    'usersAddedOrRemoved(users.splices)'
+    '_usersAddedOrRemoved(users.splices)'
   ],
-  myUsersCusersAddedOrRemovedhanged: function(changeRecord) {
+  _myUsersCusersAddedOrRemovedhanged: function(changeRecord) {
     ...
   }
 
 });
 ```
+
+
+<a name="events"></a>
+## Events
+Thanks to the double way data-binding and the event listener and the event firing system, handling events is a very powerfull way to communicate between componnents.
+
+### Listeners
+When defining event listeners, there is no need of a speciffic preffix, but again, it should be as representative as possible. Considering this, the preffix `handle` is very appropiate to this use.
+
+#### Example
+```html
+<dom-module id="x-custom">
+  <template>
+    <button on-tap="handleTap">Kick Me</button>
+  </template>
+  <script>
+    Polymer({
+      is: 'x-custom',
+      listeners: {
+        'click': 'handleClick',
+      },
+      handleTap: function() {
+        alert('tapped!');
+      },
+      handleClick: function() {
+        alert('clicked!');
+      }
+    });
+  </script>
+</dom-module>
+```
+
+### Fire events
+As said above, it is very usefull to comunicate of notify other components by firing custom events. The event´s name should be as short as possible and always taking into account that the parent´s method who will handle your event will be called under property `on-eventname`.
+
+#### Example
+
+```html
+ <!-- parent component -->
+<dom-module id="x-custom">
+  <template>
+    ...
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'x-custom',
+        ...
+      loadMenssages: function() {
+        ...
+        this.fire('items-loaded', {items: this.chatItems});
+      }
+
+    });
+
+  </script>
+
+</dom-module>
+
+<!-- child  component -->
+<dom-module id="x-custom">
+  <template>
+    ...
+    <parent-component on-items-loaded="handleItemsLoaded">
+
+    </parent-component>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'x-custom',
+        ...
+      handleItemsLoaded: function(items) {
+        ...
+      },
+
+
+    });
+
+  </script>
+
+</dom-module>
+
+```
+
+
 <a name="this"></a>
 ## "this" Context
 
@@ -205,8 +292,6 @@ When calling functions or variables defined inside the component the `this` vari
       }
     }.bind(this));
   ```
-
-
 
 <a name="layout"></a>
 ## Code layout
@@ -256,8 +341,44 @@ Here will be represented the layout proposed by the next diagrams.
   |
   - component lifecycle functions
   - behavior defined functions
-  - observer methods
-  - listener methods
+  - observer functions
+  - listener functions
+  - computed variables functions
   - functions fired by other components' events
   - custom functions
 ```
+
+<a name="tods"></a>
+## TODOs
+
++ comments
++ html markup design
++ reveive feedback
+
+<a name="resources"></a>
+## Resources
+This "guidelines" are mostly influenced by the following resources:
+
++ [Polymer library documentation](https://www.polymer-project.org/1.0/docs/devguide/feature-overview)
++ [Polymer <style-guide>](https://polymerelements.github.io/style-guide/#properties)
++ [Polymer <style-guide>](https://polymerelements.github.io/style-guide/#properties)
++ [Web Components Best Practices](http://webcomponents.org/articles/web-components-best-practices/)
++ [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
++ [Clean Code: A Handbook of Agile Software Craftsmanship ](http://blog.cleancoder.com/)
+
+
+<a name="conclusion"></a>
+## Conclusion
+The following words are pure personal opinion.
+
+I am definetly not an experienced programmer, i recently changed my stack to web developement. Don't worry i have allready noticed that JavaScript is going to rule the world (maybe it allready does) very soon. Even in my short experience, since i am an aspiring engineer, i have always wanted to code in an ordered and legible way, and there is so many things out there that "try" to help in this matter (framenworks, style guides, architectures...) that it is difficult to choose one suited for your project, this is why i decided to write this "guide" about the library that i am currently learning, Polymer.
+
+The main conclusion i can tell to anyone reading this is that probably Polymer will be (maybe, already is) the future library leading web development, but big projects with big components can be a huge mess and need to be "clean coded". In this purpose i would strongly recommend any programmer to read the book Clean Code: A Handbook of Agile Software Craftsmanship , on the otheer hand, if you are contributing in the JavaScriptglobal domination, the Airbnb JavaScript Style Guide can be very helpfull.
+
+
+<a name="contribute"></a>
+## Contribute
+
+None of this guidelines is definitive, they have been written while developing and i am sure that there are a lot of cases missing.
+
+Please, feel free to contribute, any feedback will be appreciated :)
