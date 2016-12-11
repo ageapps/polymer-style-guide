@@ -1,6 +1,6 @@
 # POLYMER STYLE GUIDE
 
-This is a compilation of rules and style guides that i used while developing Polymer components.
+This is a compilation of rules and style guides to use when developing Polymer components.
 
 ## Table of Contents
 
