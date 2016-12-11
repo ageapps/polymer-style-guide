@@ -67,10 +67,11 @@ Polymer({
 <a name="functions"></a>
 ## Functions
 
-All functions defined inside a component whose name consiss of more than one word are always written using *lowerCamelCase*.
+All functions defined inside a component, whose names consist of more than one word are always written using *lowerCamelCase*.
 
-In this matter, following the [Clean Code](http://blog.cleancoder.com/) guidelines, functions are defined considering, ***"Do one thing"*** and ***"Don´t repeat yourself"*** principles.
-Since in most cases, functions inside a polymer component are changing it´s properties, functions should have as less arguments as possible, this means that the mayority of custom functions will be **niladic** and will mutate the component iniside it.
+In this matter, following the [Clean Code](http://blog.cleancoder.com/) guidelines, functions, are defined considering the ***"Do one thing"*** and ***"Don´t repeat yourself"*** principles.
+
+Since, in most cases, functions inside a polymer component are changing it´s properties, they should have the smallest number of arguments. It means that the mayority of custom functions will be **niladic** and will mutate the component iniside them.
 
 When defining custom/helper functions, the definition should be as representative as possible, regardless of the name´s length.
 
@@ -85,12 +86,12 @@ checkCollapsibleTime: function(timestamp, timestampnext) {
 }
 ...
 ```
-This functions should not be defined with the **prefixes** or **suffixes** used in Observers and Listeners, in this way, custom functions and system functions will be easier to distinguish.
+This functions. should not be defined with the **prefixes** or **suffixes** used in Observers and Listeners. In this way, custom functions and system functions will be easier to distinguish.
 
 <a name="observers"></a>
 ## Observers
 
-In order make Obverser callback functions as distinguishable as possible, the prefix `_` and different suffixes will be used according to their use. In most cases `xxx` will be the target variable whitch will update.
+In order to make Obverser callback functions as distinguishable as possible, the prefix `_` and other suffixes are used according to their purpose. In most cases `xxx` will be the target variable which will update.
 
 ### Simple and complex Observers
 Use of expression `_xxxChanged`
@@ -184,10 +185,10 @@ Polymer({
 
 <a name="events"></a>
 ## Events
-Thanks to the double way data-binding and the event listener and the event firing system, handling events is a very powerfull way to communicate between componnents. Its is also important to know that Behaviors can also generate events (expose functions to be overriden that get called under speciffic conditions) and this functions are handled the same as system events.
+Due to the double way data-binding, to the event listener and to the event firing system, handling events becomes very handy. This a very powerfull way to communicate between componnents. Note, that Behaviors can also generate events (exposed functions that get called under speciffic conditions and are overriden) so their functions are defined the same way as system events.
 
 ### Listeners
-When defining event listeners, there is no need of a speciffic preffix, but again, it should be as representative as possible. Considering this, the preffix `handle` is very appropiate to this use.
+There is no need of a speciffic preffix when defining event listeners, but again, they should be as representative as possible. The `handle` preffix is considdered to be very appropiate for this use.
 
 #### Example
 ```html
@@ -213,7 +214,7 @@ When defining event listeners, there is no need of a speciffic preffix, but agai
 ```
 
 ### Fire events
-As said above, it is very usefull to comunicate of notify other components by firing custom events. The event´s name should be as short as possible and always taking into account that the parent´s method who will handle your event will be called under property `on-eventname`.
+It is very usefull to comunicate with other components by firing custom events. The event´s name should be as short as possible and always taking into account that the parent´s function handling your event will be called under the property `on-eventname`.
 
 #### Example
 
@@ -271,7 +272,7 @@ As said above, it is very usefull to comunicate of notify other components by fi
 <a name="this"></a>
 ## "this" Context
 
-When calling functions or variables defined inside the component the `this` variable is called many times. Whenever a function changes context, like `Promises` or JavaScript's own functions, the `bind` function will be used to pass the `this` variable and keep context.
+Usually, the `this` variable can be called multiple times inside a function. Whenever a function changes context, like in `Promises` or JavaScript's own functions, the `bind` function will be used to pass the `this` variable and keep context.
 
 ### Example
   ```javascript
@@ -300,10 +301,9 @@ When calling functions or variables defined inside the component the `this` vari
 <a name="swich"></a>
 ## Swich statements
 
-As mentioned before in the [functions](#function) section, it is desirable to make functions ***do one thing***, however, any function containing a *swich statement*  will not satisfy this principle. This is why the best approach on this matter will be to make every *swich case* to call another function and delegate the code load in more speciffic functions.
+As mentioned before in the [functions](#function) section, it is desirable to make functions ***do one thing***. However, any function containing a *swich statement*  will not satisfy this principle. This is why, the best approach on this matter, is to make every *swich case* to call another function and delegate the code load in more speciffic functions.
 
-Its important to consider later in the [code layout](#layout) that whenever one function is located following that *hierarchy*, the speciffic functions called inside the *swich cases* should be below said function in order to make code more readable.
-
+Later, it's important to consider that whenever one of this functions is placed complying the [code layout](#layout) *hierarchy*, the speciffic functions called inside the *swich cases* should be placed below that function, in order to make code more readable.
 
 
 <a name="comments"></a>
@@ -397,7 +397,7 @@ Here will be represented the layout proposed by the next diagrams.
   - custom functions
 ```
 
-<a name="tods"></a>
+<a name="todos"></a>
 ## TODOs
 
 + html markup design
@@ -417,16 +417,17 @@ This "guidelines" are mostly influenced by the following resources:
 
 <a name="conclusion"></a>
 ## Conclusion
-Be warned that following words are pure personal opinion.
 
-I am definetly not an experienced programmer, i recently changed my stack to web developement. Don't worry i have allready noticed that JavaScript is going to rule the world (maybe it allready does) very soon. Even in my short experience, since i am an aspiring engineer, i have always wanted to code in an ordered and legible way, and there is so many things out there that "try" to help in this matter (framenworks, style guides, architectures...) that it is difficult to choose one suited for your project, this is why i decided to write this "guide" about the library that i am currently learning, Polymer.
+The following words are pure personal opinion.
 
-The main conclusion i can tell to anyone reading this is that probably Polymer will be (maybe, already is) the future library leading web development, but big projects with big components can be a huge mess and need to be "clean coded". In this purpose i would strongly recommend any programmer to read the book Clean Code: A Handbook of Agile Software Craftsmanship , on the otheer hand, if you are contributing in the JavaScriptglobal domination, the Airbnb JavaScript Style Guide can be very helpfull.
+I am not yet an experienced programmer, I recently changed my stack to web development. (Don't worry I have allready noticed that JavaScript is going to rule the world very soon). Even in my short experience, as an aspiring engineer, I always wanted to write ordered and legible code. Nowadays, there are many things out there that "try" to help in this matter (libraries, framenworks, style guides, architectures...), but it's difficult to choose one perfect for your project. This is why i decided to write this "guide", about the library that I am currently learning, Polymer.
+
+As a summary, I can tell from my short experience, that Polymer will be the future library leading web development. Big projects with big components can be a huge mess and need to be "clean coded". I would strongly recommend any programmer to read the book [Clean Code](http://blog.cleancoder.com/) , also, if you are contributing in the JavaScript global domination, the Airbnb JavaScript Style Guide can be very helpfull.
 
 
 <a name="contribute"></a>
 ## Contribute
 
-None of this guidelines is definitive, they have been written while developing and i am sure that there are a lot of cases missing.
+None of this guidelines is definitive, they have been written while developing and learning Polymer. I am sure that there are a lot of missing cases.
 
-Please, feel free to contribute, any feedback will be appreciated :)
+Please, feel free to contribute to this guide, any feedback will be appreciated :)
