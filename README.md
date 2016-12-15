@@ -335,9 +335,7 @@ Documentation is allways painfull and a *plus* of work that programmers usually 
 
 In this purpose, there is a very simple guide about documentation in the [Polymer `<style-guide>`](https://polymerelements.github.io/style-guide).
 
-In spite of that guide´s approach, i decided to look for something more concrete like [JSDoc](http://usejsdoc.org/). This way, we can document our components using a widely used documentation generator.
-
-The next step in this matter is to generate markdown documentation based on [JSDoc](http://usejsdoc.org/) using [jsdox](http://jsdox.org/).
+Next step is to use [iron-doc-viewer](https://elements.polymer-project.org/elements/iron-doc-viewer) component to generate each component's API.
 
 ### Example
 ```JavaScript
@@ -416,7 +414,8 @@ Here will be represented the layout proposed by the next diagrams.
 
 + html markup design
 + receive feedback
-+ jsdox integration and examples
++ Yeoman template
++ Documentation through `iron-doc-viewer` component
 
 <a name="resources"></a>
 ## Resources
