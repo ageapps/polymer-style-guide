@@ -5,6 +5,7 @@ This is a compilation of rules and style guides to use when developing Polymer c
 <a name="contents"></a>
 ## Table of Contents
 
+  1. [Introduction](#introduction)
   1. [Properties](#properties)
   1. [Functions](#functions)
   1. [Observers](#observers)
@@ -21,6 +22,15 @@ This is a compilation of rules and style guides to use when developing Polymer c
 
 
 
+<a name="introduction"></a>
+## Introduction
+
+<a name="privapi"></a>
+#### Private API
+
+<a name="pubapi"></a>
+#### Public API
+
 <a name="properties"></a>
 ## Properties
 
@@ -30,7 +40,11 @@ All properties defined inside a Polymer component consisting of more than one wo
 // for example setting a user´s name
 const userName = "Polymer"
 ```
-When defining properties inside a component, every variable should be initializad with a default value:
+All properties are exposed from the component to its API, but sometimes there is variables that are internally handled and
+are not considered part of the component's [public API](#pubapi) but of the [private API](#privapi). This properties should be proceeded by a `_`, and by convention should be
+located at the end of the properties list.
+
+When defining properties inside a component, every variable should be initialized with a default value:
 
 ```javascript
 Polymer({
@@ -61,6 +75,10 @@ Polymer({
       notify: true,
       value: function() { return []; }
     },
+    _privateProperty: {
+      type: number,
+      value: 0
+    },
   }
 
 });
@@ -73,9 +91,11 @@ All functions defined inside a component, whose names consist of more than one w
 
 In this matter, following the [Clean Code](http://blog.cleancoder.com/) guidelines, functions, are defined considering the ***"Do one thing"*** and ***"Don´t repeat yourself"*** principles.
 
-Since, in most cases, functions inside a polymer component are changing it´s properties, they should have the smallest number of arguments. It means that the mayority of custom functions will be **niladic** and will mutate the component iniside them.
+Since, in most cases, functions inside a polymer component are changing it´s properties, they should have the smallest number of arguments. It means that the mayority of custom functions will be **niladic** and will mutate the component inside them.
 
 When defining custom/helper functions, the definition should be as representative as possible, regardless of the name´s length.
+
+Note that from all functions that a Polymer component exposes as API, there is a [public API](#pubapi) and a [private API](#privapi) . Sometimes there are internal functions to handle specific tasks which are not relevant in the use of the component. Therefore, this functions are considered part of the component's private API and are proceeded by a `_`(similar to [private properties](#properties) )
 
 ```javascript
 ...
@@ -84,6 +104,10 @@ scrollToBottom: function() {
 },
 ...
 checkCollapsibleTime: function(timestamp, timestampnext) {
+    ...
+},
+...
+_internalUsefullFunction: function() {
     ...
 }
 ...
@@ -95,7 +119,7 @@ This functions. should not be defined with the **prefixes** or **suffixes** used
 <a name="observers"></a>
 ## Observers
 
-In order to make Obverser callback functions as distinguishable as possible, the prefix `_` and other suffixes are used according to their purpose. In most cases `xxx` will be the target variable which will update.
+In order to make Obverser callback functions as distinguishable as possible, the prefix `_` (observer functions belong to the component's [private API](#privapi) ) and other suffixes are used according to their purpose. In most cases `xxx` will be the target variable which will update.
 
 ### Simple and complex Observers
 Use of expression `_xxxChanged`
@@ -192,13 +216,13 @@ Polymer({
 Due to the double way data-binding, to the event listener and to the event firing system, handling events becomes very handy. This a very powerfull way to communicate between componnents. Note, that Behaviors can also generate events (exposed functions that get called under speciffic conditions and are overriden) so their functions are defined the same way as system events.
 
 ### Listeners
-There is no need of a speciffic preffix when defining event listeners, but again, they should be as representative as possible. The `handle` preffix is considdered to be very appropiate for this use.
+Again, as considered with the [observers](#observers), listener methods belong to the component's [private API](#privapi), therefore they are proceeded by `_`. Other than that, there is no need of a speciffic preffix when defining event listeners, but again, they should be as representative as possible. The `handle` preffix is considdered to be very appropiate for this use.
 
 #### Example
 ```html
 <dom-module id="x-custom">
   <template>
-    <button on-tap="handleTap">Kick Me</button>
+    <button on-tap="_handleTap" onclick="_handleClick">Kick Me</button>
   </template>
   <script>
     Polymer({
@@ -206,10 +230,10 @@ There is no need of a speciffic preffix when defining event listeners, but again
       listeners: {
         'click': 'handleClick',
       },
-      handleTap: function() {
+      _handleTap: function() {
         alert('tapped!');
       },
-      handleClick: function() {
+      _handleClick: function() {
         alert('clicked!');
       }
     });
