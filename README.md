@@ -24,12 +24,30 @@ This is a compilation of rules and style guides to use when developing Polymer c
 
 <a name="introduction"></a>
 ## Introduction
+> Polymer is a lightweight library that helps you take full advantage of Web Components.
+
+> With Web Components, you can create reusable custom elements that interoperate seamlessly with the browser’s built-in elements, or break your app up into right-sized components, making your code cleaner and less expensive to maintain.
+
+> https://www.polymer-project.org
+
+Polymer is an Open Source front-end library developed by Google. It aims to be a wrapper to the Web Components standard that was introduced within HTML 5.
+Polymer reinforces the idea proposed by Google of developing **Progressive Web Applications**, which i am pretty convinced that is the future in web development.
+
+As mentioned before, Polymer is based on Web Components, this enables modular, flexible and reusable web development. All this is possible because each component exposes its own API, which will be used by other components and keep all components communicated. Here is where 2 types of API arise.
+<a name="pubapi"></a>
+
+#### Public API
+
+The public API contains all [properties](#properties) and [functions](#functions) that can be consumed from the outside of the component. This means that public properties can show the state content of the component, and public functions allow communication between components.
 
 <a name="privapi"></a>
 #### Private API
 
-<a name="pubapi"></a>
-#### Public API
+Here you can find all properties that are used internally inside the component and don´t give any extra information to the outside components. Also sometimes, there are some private functions that are required for internal processing, but they are not useful to be used from another component.
+
+All this, is important to be considered in the [documentation](#documentation) process and can be seen as example in the [Polymer Elements Catalog](https://elements.polymer-project.org/elements).
+
+![Catalog](./polymerElements.jpg)
 
 <a name="properties"></a>
 ## Properties
